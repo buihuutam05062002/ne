@@ -37,7 +37,7 @@ public class NEcontroller {
     }
     @GetMapping("/products")
     public ResponseEntity<List<ProductDTO>> getProducts() {
-        return ResponseEntity.ok(neService.getFrequentProducts());
+        return ResponseEntity.ok(neService.getProducts());
     }
 
     @PostMapping("/recommend")

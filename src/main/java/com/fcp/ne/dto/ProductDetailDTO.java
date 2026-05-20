@@ -7,23 +7,29 @@ public class ProductDetailDTO {
     private String color;
     private String size;
     private double weight;
+    private String weightUnitMeasureCode;
     private String productNumber;
     private String subCategory;
     private String category;
     private String description;
 
-
-    public ProductDetailDTO(int id, String name, double price, String color, double weight, String size, String productNumber, String subCategory, String category, String description) {
+    public ProductDetailDTO(int id, String name, double price, String color, String size, double weight, String weightUnitMeasureCode, String productNumber, String subCategory, String category, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.color = color;
-        this.weight = weight;
         this.size = size;
+        this.weight = weight;
+        this.weightUnitMeasureCode = weightUnitMeasureCode;
         this.productNumber = productNumber;
         this.subCategory = subCategory;
         this.category = category;
         this.description = description;
+    }
+
+
+    public String getWeightUnitMeasureCode() {
+        return weightUnitMeasureCode;
     }
 
     public int getId() {

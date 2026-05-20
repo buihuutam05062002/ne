@@ -16,7 +16,7 @@ public class ProductRepository {
     }
 
     public Map<Integer, String> getProductMap() {
-        String sql = "SELECT p.ProductID, p.Name FROM Production.Product p";
+        String sql = "SELECT p.ProductID, p.Name FROM Production.Product p WHERE p.FinishedGoodsFlag = 1";
 
         return jdbcTemplate.query(sql, rs -> {
             Map<Integer, String> map = new HashMap<>();
@@ -36,10 +36,11 @@ public class ProductRepository {
                 p.Color,
                 p.Size,
                 p.Weight,
+                p.WeightUnitMeasureCode,
                 p.ProductNumber,
                 ps.Name  AS SubCategory,
                 pc.Name  AS Category,
-                ISNULL(pd.Description, 'Chưa có mô tả') AS Description
+                ISNULL(pd.Description, 'Không có thông tin') AS Description
             FROM Production.Product p
             LEFT JOIN Production.ProductSubcategory ps 
                 ON p.ProductSubcategoryID = ps.ProductSubcategoryID
@@ -60,8 +61,9 @@ public class ProductRepository {
                 rs.getString("Name"),
                 rs.getDouble("ListPrice"),
                 rs.getString("Color"),
-                rs.getDouble("Weight"),
                 rs.getString("Size"),
+                rs.getDouble("Weight"),
+                rs.getString("WeightUnitMeasureCode"),
                 rs.getString("ProductNumber"),
                 rs.getString("SubCategory"),
                 rs.getString("Category"),

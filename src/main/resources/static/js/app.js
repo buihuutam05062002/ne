@@ -96,6 +96,9 @@ function renderRec(data) {
     clone.querySelector(".r-bar").style.width =
       Math.round((r.support / max) * 100) + "%";
     clone.querySelector(".r-pct").textContent = "SUP: " + r.support.toFixed(0);
+    const row = clone.querySelector("div");
+    row.style.cursor = "pointer";
+    row.addEventListener("click", () => onClickProduct(r.productId));
     area.appendChild(clone);
   });
 }
@@ -109,13 +112,12 @@ function renderDetail(d) {
 
   document.getElementById("detailBody").innerHTML = `
           <p class="fw-bold mb-1">${fmt(d.name)}</p>
-          <p class="text-secondary mb-2" style="font-size:12px;">Mã: ${fmt(d.productNumber)}</p>
           <p class="text-success fw-bold fs-5 mb-2">${fmtPrice(d.price)}</p>
           ${d.category ? `<span class=" mb-3">${fmt(d.category)} › ${fmt(d.subCategory)}</span>` : ""}
           <table class="table table-sm table-borderless" style="font-size:13px;">
             <tr><td class="text-secondary">Màu sắc</td><td>${fmt(d.color)}</td></tr>
             <tr><td class="text-secondary">Kích thước</td><td>${fmt(d.size)}</td></tr>
-            <tr><td class="text-secondary">Cân nặng</td><td>${d.weight > 0 ? d.weight + " kg" : ""}</td></tr>
+            <tr><td class="text-secondary">Cân nặng</td><td>${d.weight > 0 ? d.weight + ' ' + (d.weightUnitMeasureCode  || '') : ''}</td></tr>
           </table>
           ${d.description ? `<p class="bg-light rounded p-2 mt-2" style="font-size:13px;">${d.description}</p>` : ""}
         `;
@@ -123,7 +125,7 @@ function renderDetail(d) {
   const btn = document.getElementById("btnAddBasket");
   btn.style.display = "block";
   updateBtnBasket();
-}
+}   
 
 function updateBtnBasket() {
   const btn = document.getElementById("btnAddBasket");

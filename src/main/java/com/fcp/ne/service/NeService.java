@@ -42,18 +42,12 @@ public class NeService {
         return itemsets;
     }
 
-    public List<ProductDTO> getFrequentProducts() {
-        Set<Integer> frequentIds = new HashSet<>();
-        for (Itemset itemset : itemsets) {
-            if (itemset.getItems().size() >= 2) {
-                frequentIds.addAll(itemset.getItems());
-            }
-        }
-        return frequentIds.stream()
-                .map(id -> new ProductDTO(id, productMap.getOrDefault(id, "Sản phẩm #" + id)))
+    public List<ProductDTO> getProducts() {
+        return productRepository.getProductMap()
+                .entrySet().stream()
+                .map(e -> new ProductDTO(e.getKey(), e.getValue()))
                 .sorted(Comparator.comparing(ProductDTO::getName))
                 .collect(Collectors.toList());
-
     }
 
 
