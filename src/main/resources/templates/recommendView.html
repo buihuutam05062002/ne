@@ -3,105 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
-    <title>NECLATCLOSED</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>NECLATCLOSED — Gợi ý sản phẩm</title>
+      <link rel="stylesheet" href="../static/css/recommendView.css">
   </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="./miningView.html" class="nav-btn"> ◂ Khai thác lại </a>
+        <span class="topbar-title">Hệ thống gợi ý sản phẩm</span>
+        <span class="algo-badge">NECLATCLOSED</span>
+      </div>
+    </header>
 
-  <body class="bg-light">
-
-    <div class="d-flex align-items-center gap-3 p-3 bg-white border-bottom">
-      <a href="miningView.html" class="btn btn-outline-secondary btn-sm">← Khai thác lại</a>
-      <span class="fw-bold">Hệ thống gợi ý sản phẩm</span>
-      <span class="badge bg-success">NECLATCLOSED</span>
-    </div>
-
-
-    <div class="d-flex" style="height: calc(100vh - 57px); overflow: hidden;">
-
-
-      <div class="d-flex flex-column bg-white border-end" style="width: 260px; min-width: 220px;">
-        <div class="p-2 border-bottom">
-          <div class="fw-semibold" style="font-size:13px;">Danh sách sản phẩm</div>
-            <div id="productCount" class="text-secondary" style="font-size:12px;"></div> 
-
+    <div class="main">
+      <div class="col-list">
+        <div class="col-header">
+          <div class="col-title">Sản phẩm</div>
+          <div class="col-sub" id="productCount">Đang tải...</div>
         </div>
-        <div class="p-2 border-bottom">
-          <input type="text" id="searchInput" class="form-control form-control-sm"
-            placeholder="Tìm sản phẩm..." oninput="filterProducts()" disabled />
+        <div class="search-wrap">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Tìm sản phẩm..."
+            oninput="filterProducts()"
+            disabled
+          />
         </div>
-        <ul id="productList" class="list-unstyled m-0 overflow-auto flex-grow-1">
-          <li class="text-secondary text-center mt-3" style="font-size:13px;">Khai thác trước</li>
+        <ul id="productList">
+          <li style="padding: 12px 14px">
+            <div class="skeleton skel-name" style="width: 80%"></div>
+            <div class="skeleton skel-name" style="width: 60%"></div>
+            <div class="skeleton skel-name" style="width: 70%"></div>
+          </li>
         </ul>
       </div>
 
-      <div class="d-flex flex-column bg-white border-end" style="width: 300px; min-width: 260px;">
-        <div class="p-2 border-bottom fw-semibold" style="font-size:13px;">Thông tin sản phẩm</div>
-        <div id="detailBody" class="p-3 overflow-auto flex-grow-1">
-          <p class="text-secondary text-center mt-4" style="font-size:13px;">Chọn sản phẩm để xem chi tiết</p>
+      <div class="col-detail">
+        <div class="col-header">
+          <div class="col-title">Thông tin sản phẩm</div>
         </div>
-        <div class="p-2 border-top">
-          <button id="btnAddBasket" class="btn btn-success btn-sm w-100" style="display:none;" onclick="onToggleBasket()">
+        <div id="detailBody">
+          <div class="empty-msg">Chọn sản phẩm để xem chi tiết</div>
+        </div>
+        <div class="detail-footer">
+          <button
+            id="btnAddBasket"
+            class="btn-basket add"
+            style="display: none"
+            onclick="onToggleBasket()"
+          >
             Thêm vào giỏ hàng
           </button>
         </div>
       </div>
 
-      <div class="d-flex flex-column flex-grow-1 p-3 gap-3 overflow-hidden">
-
-
-        <div class="bg-white border rounded p-3">
-          <div class="text-secondary mb-2" style="font-size:13px;">Giỏ hàng</div>
-          <div id="basket" class="d-flex flex-wrap gap-2">
-            <span class="text-secondary fst-italic" style="font-size:13px;">Chưa chọn sản phẩm nào</span>
+      <div class="col-right">
+        <div class="basket-section">
+          <div class="section-label">Giỏ hàng</div>
+          <div id="basket">
+            <span
+              style="font-size: 12px; color: var(--muted); font-style: italic"
+              >Chưa chọn sản phẩm nào</span
+            >
           </div>
         </div>
 
-        <div class="bg-white border rounded d-flex flex-column flex-grow-1 overflow-hidden">
-          <div class="p-3 border-bottom d-flex align-items-center gap-2">
-            <span class="fw-semibold">Gợi ý sản phẩm</span>
-            <span class="text-secondary" id="recCount" style="font-size:13px;"></span>
+        <div class="rec-section">
+          <div class="rec-header">
+            <span class="rec-title">Gợi ý sản phẩm</span>
+            <span
+              class="rec-count-badge"
+              id="recCount"
+              style="display: none"
+            ></span>
           </div>
-          <div id="recArea" class="overflow-auto flex-grow-1">
-            <p class="text-secondary text-center mt-4" style="font-size:13px;">Chọn sản phẩm để xem gợi ý</p>
+          <div id="recArea">
+            <div class="empty-msg">Chọn sản phẩm để xem gợi ý</div>
           </div>
         </div>
-
       </div>
     </div>
 
     <template id="tplProduct">
-      <li class="p-item d-flex align-items-center px-3 py-2 border-bottom"
-          style="cursor:pointer; font-size:13px; border-left: 3px solid transparent;">
-        <span class="p-check text-success fw-bold me-2" style="opacity:0;">+</span>
+      <li class="p-item">
+        <div class="p-check">✓</div>
         <span class="p-name"></span>
       </li>
     </template>
-
     <template id="tplChip">
-      <div class="badge bg-success d-flex align-items-center gap-2 px-2 py-1">
+      <div class="chip">
         <span class="b-name"></span>
-        <button type="button" class="b-rm btn-close btn-close-white" style="font-size:10px;"></button>
+        <button type="button" class="chip-rm b-rm">✕</button>
       </div>
     </template>
 
-    <template id="tplRec">
-      <div class="px-3 py-2 border-bottom">
-        <div class="d-flex align-items-center mb-1">
-          <span class="r-rank text-success fw-bold me-2" style="font-size:12px;"></span>
-          <span class="r-name" style="font-size:13px;"></span>
-        </div>
-        <div class="progress" style="height:6px;">
-          <div class="r-bar progress-bar bg-success" role="progressbar"></div>
-        </div>
-        <div class="text-end text-secondary mt-1" style="font-size:11px;">
-          <span class="r-pct"></span>
-        </div>
-      </div>
-    </template>
+    <div id="toastContainer"></div>
 
-    <script src="../static/js/app.js">
- 
-    </script>
-
+    <script src="../static/js/recommendView.js"></script>
   </body>
 </html>

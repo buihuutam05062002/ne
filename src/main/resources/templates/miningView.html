@@ -1,112 +1,138 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
-    <title>Document</title>
+    <title>NECLATCLOSED — Khai thác</title>
+    <link rel="stylesheet" href="../static/css/miningView.css">
   </head>
   <body>
-    <div
-      class="d-flex flex-row justify-content-between align-items-center w-100 p-3 border-bottom bg"
-    >
-      <div class="d-flex flex-row align-items-center gap-3">
-        <p class="mb-0" style="font-weight: 700">
-          Khai thác hành vi khách hàng
-        </p>
-        <span class="bg-success text-light p-2 border rounded-5"
-          >NECLATCLOSED</span
-        >
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">Khai thác hành vi khách hàng</span>
+        <span class="algo-badge">NECLATCLOSED</span>
       </div>
-      <span class="">
-        <a href="./recommendView.html" class="btn btn-outline-secondary btn-sm">
-          Gợi ý sản phẩm ->
-        </a>
-      </span>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <div class="status-dot idle" id="statusDot">
+          <span class="dot"></span>
+          <span id="statusText">Chưa khai thác</span>
+        </div>
+        <a href="./recommendView.html" class="nav-btn"> Gợi ý sản phẩm </a>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="field">
+        <label for="transactionFile">File giao dịch (.txt)</label>
+        <input type="file" id="transactionFile" accept=".txt" />
+      </div>
+      <div class="field">
+        <label for="minSupport">Ngưỡng min support</label>
+        <input type="text" id="minSupport" placeholder="Ví dụ: 0.02" />
+      </div>
+      <button class="btn-run" id="btnRun" onclick="sendData()">
+        Khai thác tập mục phổ biến đóng
+      </button>
     </div>
-    <div class="row justify-content-around align-items-center g-3 px-3 w-100">
-      <div class="col-3">
-        <label for="transactionFile">Chọn file giao dịch (.txt)</label>
-        <input
-          type="file"
-          name="transactionFile"
-          id="transactionFile"
-          class="form-control form-control-sm"
-          style="width: 200px"
-        />
-      </div>
-      <div class="col-6">
-        <label for="minSupport">Min support</label>
-        <input
-          type="text"
-          name="minSupport"
-          id="minSupport"
-          class="form-control form-control-sm"
-          style="width: 50em"
-        />
-      </div>
-      <div class="col-3">
-        <button
-          type="button"
-          class="btn btn-primary w-100"
-          onclick="sendData()"
-        >
-          Khai thác tập mục phổ biến đóng
-        </button>
-      </div>
-    </div>
-    <!-- Thống kê -->
-    <div id="statsSection" class="container-fluid px-3 mt-3">
-      <div class="row g-3">
-        <div class="col">
-          <div class="border rounded p-3 text-center">
-            <div class="text-secondary" style="font-size: 13px">
-              Số giao dịch
-            </div>
-            <div class="fw-bold fs-5" id="statTrans"></div>
+
+    <div class="page-body">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Danh sách sản phẩm</div>
+          <input
+            class="sidebar-search"
+            type="text"
+            id="sidebarSearch"
+            placeholder="Tìm sản phẩm..."
+            oninput="filterSidebar()"
+          />
+        </div>
+        <div class="sidebar-legend">
+          <div class="legend-item">
+            <div class="legend-dot active"></div>
+            Xuất hiện trong kết quả
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot inactive"></div>
+            Không xuất hiện
           </div>
         </div>
-        <div class="col">
-          <div class="border rounded p-3 text-center">
-            <div class="text-secondary" style="font-size: 13px">
-              Frequent 1-itemset
-            </div>
-            <div class="fw-bold fs-5" id="stat1Item"></div>
+        <ul id="sidebarList">
+          <li class="sidebar-empty">Đang tải sản phẩm...</li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <div class="stats-grid">
+          <div class="stat-card c-blue">
+            <div class="stat-label">Số giao dịch</div>
+            <div class="stat-val" id="statTrans">—</div>
+          </div>
+          <div class="stat-card c-green">
+            <div class="stat-label">Frequent 1-itemset</div>
+            <div class="stat-val" id="stat1Item">—</div>
+          </div>
+          <div class="stat-card c-yellow">
+            <div class="stat-label">Closed itemset</div>
+            <div class="stat-val" id="statClosed">—</div>
           </div>
         </div>
-        <div class="col">
-          <div class="border rounded p-3 text-center">
-            <div class="text-secondary" style="font-size: 13px">
-              Closed itemset
+
+        <div class="result-wrap">
+          <div class="result-panel">
+            <div class="result-header">
+              <span class="result-title">Kết quả khai thác</span>
+              <div class="result-actions">
+                <input
+                  class="filter-input"
+                  type="text"
+                  id="filterInput"
+                  placeholder="Lọc tập mục..."
+                  oninput="filterTable()"
+                />
+                <button
+                  class="sort-btn active"
+                  id="sortBtn"
+                  onclick="toggleSort()"
+                >
+                  <span id="sortLabel">Support ↓</span>
+                </button>
+                <button class="export-btn" onclick="exportCSV()">
+                  Xuất CSV
+                </button>
+              </div>
             </div>
-            <div class="fw-bold fs-5" id="statClosed"></div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="td-num">#</th>
+                    <th onclick="sortByCol('items')">
+                      Tập mục <span style="opacity: 0.5">↕</span>
+                    </th>
+                    <th class="td-sup sorted" onclick="sortByCol('support')">
+                      Support <span style="opacity: 0.5">↓</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="itemsetBody">
+                  <tr>
+                    <td colspan="3">
+                      <div class="empty-state">
+                        Chọn file và nhập min support để bắt đầu
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container-fluid px-3 mt-3">
-      <div id="resultSection" style="display: none">
-        <h6 class="fw-bold">Kết quả khai thác:</h6>
-        <div
-          id="itemsetTable"
-          class="table-responsive"
-          style="max-height: 500px; overflow-y: auto"
-        >
-          <table class="table table-sm table-bordered table-striped">
-            <thead class="table-dark sticky-top">
-              <tr>
-                <th>#</th>
-                <th>Tập mục</th>
-                <th>Support</th>
-              </tr>
-            </thead>
-            <tbody id="itemsetBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <div id="toastContainer"></div>
 
-    <script src="../static/js/app1.js"></script>
+    <script src="../static/js/miningView.js"></script>
   </body>
 </html>

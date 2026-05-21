@@ -157,6 +157,9 @@ async function onClickProduct(id) {
 
   const filtered = data.filter((r) => r.id !== id && !basket.has(r.id));
   renderRec(filtered);
+  
+  console.log("onClickProduct called with id:", id, typeof id);
+  selectedId = id;
 }
 
 async function onToggleBasket() {
