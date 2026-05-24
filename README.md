@@ -12,7 +12,7 @@
 - [Cài đặt](#cài-đặt)
 - [API Reference](#api-reference)
 - [Chiến lược gợi ý](#chiến-lược-gợi-ý)
-- [Hướng phát triển](#hướng-phát-triển)
+
 
 ---
 
@@ -152,12 +152,6 @@ nếu không có sản phẩm gợi ý thì nó sẽ tự động gợi ý dựa
 ---
 
 ---
-
-## Hướng phát triển
-
-- Hỗ trợ nhiều chiến lược ranking cho kết quả gợi ý
-- Thêm visualization thống kê (biểu đồ support, phân phối itemset)
-- Đóng gói Docker để triển khai dễ dàng hơn
 
 ---
 
