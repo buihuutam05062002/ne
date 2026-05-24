@@ -32,15 +32,16 @@ Hệ thống gồm hai module chính hoạt động liên kết:
 - Upload file giao dịch định dạng `.txt`
 - Thiết lập ngưỡng `minSupport`
 - Khai thác tập mục phổ biến đóng
-- Hiển thị kết quả: closed itemsets, support, thống kê tổng số tập khai thác được
+- Hiển thị kết quả: closed itemsets, transactions, thống kê tổng số tập khai thác được, tập phổ biến đóng chỉ 1 itemset
 - Sidebar danh sách sản phẩm, các sản phẩm xuất hiện trong kết quả khai thác.
 
 ### 2. Product Recommendation
 
-- Duyệt danh sách sản phẩm từ AdventureWork2024, tìm kiếm theo tên
+- Hiển thị danh sách sản phẩm từ AdventureWork2024, tìm kiếm theo tên
 - Xem thông tin chi tiết sản phẩm
-- Nhập giỏ hàng hiện tại (danh sách product ID)
-- Gợi ý các sản phẩm thường xuất hiện cùng trong một itemset dựa trên support
+- Nhập giỏ hàng hiện tại
+-  Gợi ý các sản phẩm có xu hướng được mua cùng dựa trên độ hỗ trợ, sắp xếp theo support giảm dần 
+
 
 ### 3. Data Utilities
 
