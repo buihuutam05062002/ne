@@ -2,7 +2,7 @@
 
 > Web application for Frequent Closed Itemset Mining and Product Recommendation
 
-Ứng dụng web triển khai thuật toán **NECLATCLOSED** — thuật toán khai thác theo hướng dọc (vertical) dựa trên phủ định — để khai thác **Frequent Closed Itemsets (FCI)** từ dữ liệu giao dịch, đồng thời hỗ trợ **gợi ý sản phẩm** dựa trên giỏ hàng hiện tại và sản phẩm được chọn.
+Ứng dụng web triển khai thuật toán **NECLATCLOSED** thuật toán khai thác theo hướng dọc (vertical) dựa trên phủ định để khai thác **Frequent Closed Itemsets (FCI)** từ dữ liệu giao dịch, đồng thời hỗ trợ **gợi ý sản phẩm** dựa trên giỏ hàng hiện tại và sản phẩm được chọn.
 
 ## Mục lục
 
