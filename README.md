@@ -20,8 +20,8 @@
 
 Hệ thống gồm hai module chính hoạt động liên kết:
 
-1. **Mining Module** — Nhận file giao dịch và ngưỡng `minSupport`, thực thi thuật toán NECLATCLOSED, trả về danh sách Frequent Closed Itemsets kèm support.
-2. **Recommendation Module** — Nhận giỏ hàng hiện tại, đối sánh với kết quả khai thác, trả về danh sách sản phẩm gợi ý có thông tin chi tiết từ cơ sở dữ liệu AdventureWorks2014.
+1. **Mining Module** Nhận file giao dịch và ngưỡng `minSupport`, thực thi thuật toán NECLATCLOSED, trả về danh sách Frequent Closed Itemsets kèm support.
+2. **Recommendation Module** Nhận giỏ hàng hiện tại, đối sánh với kết quả khai thác, trả về danh sách sản phẩm gợi ý có thông tin chi tiết từ cơ sở dữ liệu AdventureWorks2014.
 
 ---
 
@@ -74,14 +74,14 @@ Hệ thống gồm hai module chính hoạt động liên kết:
 
 ### Các bước cài đặt
 
-**Bước 1 — Clone repository**
+**Bước 1 Clone repository**
 
 ```bash
 git clone <repo-url>
 cd ne-main
 ```
 
-**Bước 2 — Cấu hình kết nối database**
+**Bước 2 Cấu hình kết nối database**
 
 Mở file `src/main/resources/application.properties` và cập nhật thông tin:
 
@@ -91,13 +91,13 @@ spring.datasource.username=sa
 spring.datasource.password=your_password
 ```
 
-**Bước 3 — Build project**
+**Bước 3 Build project**
 
 ```bash
 mvn clean install
 ```
 
-**Bước 4 — Khởi chạy ứng dụng**
+**Bước 4 Khởi chạy ứng dụng**
 
 ```bash
 mvn spring-boot:run
